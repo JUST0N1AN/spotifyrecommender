@@ -7,13 +7,13 @@
             <form>
                 <h3 class="form__title">Choose Your Song</h3>
       <div class="row">
-        <div class="input-field col s10 push-s1">
+        <div class="input-field col s12">
           <input  id="song" type="text" class="validate">
           <label for="song">Please Enter Correct Song Name</label>
         </div>
         </div>
         <div class="row">
-        <div class="input-field col s10 push-s1">
+        <div class="input-field col s12">
           <input id="year" type="number" class="validate">
           <label for="year">Song Year</label>
         </div>
@@ -24,7 +24,7 @@
       </div>
 </form>
 <div class="row"  >
-  <div class="col s6 push-s3">
+  <div class="col s10 push-s1">
     <ul class="collection" style="overflow-y: auto;" >
       
       <li v-for="(i, index) in songs" :key="index" class="collection-item">
@@ -92,7 +92,7 @@ const temp = await axios(config)
   }
 })
 .catch(function (error) {
-  console.log(error);
+  alert(error.message);
 });
 console.log(temp);
 
