@@ -73,7 +73,7 @@ var data = JSON.stringify({
 
 var config = {
   method: 'post',
-  url: 'http://127.0.0.1:5000/reccomend',
+  url: 'https://recmend2.herokuapp.com/reccomend',
   headers: { 
     'Content-Type': 'application/json'
   },
