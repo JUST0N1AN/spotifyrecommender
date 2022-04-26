@@ -65,7 +65,7 @@ export default {
             this.song = document.getElementById("song").value;
             this.year = document.getElementById("year").value;
             this.year = parseInt(this.year);
-            axios.get(``,{
+            axios.get(`https://recommend-intus.herokuapp.com/reccomend`,{
                 params: {
                     "name": this.name,
                     "year": this.year
