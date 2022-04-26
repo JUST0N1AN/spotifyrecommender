@@ -20,7 +20,7 @@
       </div>
       
       <div class="valign center">
-      <button class="waves-effect waves-light btn modal-trigger green accent-4" style="margin-left:5px;"  @click="getRec()">Get Recommendations</button>
+      <a class="waves-effect waves-light btn modal-trigger green accent-4" style="margin-left:5px;"  @click="getRec()">Get Recommendations</a>
       </div>
 </form>
 <div class="row"  >
@@ -65,12 +65,14 @@ export default {
             this.song = document.getElementById("song").value;
             this.year = document.getElementById("year").value;
             this.year = parseInt(this.year);
-            axios.get(`https://recommend-intus.herokuapp.com/reccomend`,{
+            console.log(this.year);
+            console.log(this.song); //Please change url to the local IP with /reccomend at the end for local testing
+            axios.get(`https://recmend2.herokuapp.com/reccomend`,{  
                 params: {
                     "name": this.name,
-                    "year": this.year
+                    "year": this.year,
                 }
-            });
+            }).then(response => (this.songs = response.data));
         }
     },
 }
