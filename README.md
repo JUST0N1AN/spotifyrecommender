@@ -1,5 +1,8 @@
 # spotifyrecommender
 
+##Hosted URL
+https://spotify-recommend.web.app/
+
 ## Project setup
 ```
 yarn install
