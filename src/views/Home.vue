@@ -25,16 +25,14 @@
 </form>
 <div class="row"  >
   <div class="col s6 push-s3">
-    <ul class="collection" style="overflow-y: auto;">
+    <ul class="collection" style="overflow-y: auto;" >
       
       <li v-for="(i, index) in songs" :key="index" class="collection-item">
         <div  class="card green accent-4">
         <div class="card-content white-text">
           <span class="card-title">{{ i.name }}</span>
           <p>Year: {{i.year}}</p>
-          <p>Artists: <ul>
-            <li v-for="(i, index) in i.artists" :key="index" >{{i}}</li>
-            </ul></p>
+          <p>Artists: {{i.artists}}</p>
             <br>
         </div>
       </div>
@@ -50,32 +48,58 @@
 </template>
 
 <script>
-import axios from 'axios';
+
 
 export default {
     data(){
         return{
             song:null,
             year:null,
-            songs:[],
+            songs: [],
         }
     },
     methods:{
-        getRec(){
+        async getRec(){
             this.song = document.getElementById("song").value;
             this.year = document.getElementById("year").value;
             this.year = parseInt(this.year);
             console.log(this.year);
             console.log(this.song); //Please change url to the local IP with /reccomend at the end for local testing
-            axios.get(`https://recmend2.herokuapp.com/reccomend`,{  
-                params: {
-                    "name": this.name,
-                    "year": this.year,
-                }
-            }).then(response => (this.songs = response.data));
+            var axios = require('axios');
+var data = JSON.stringify({
+  "name": this.song,
+  "year": this.year
+});
+
+var config = {
+  method: 'post',
+  url: 'http://127.0.0.1:5000/reccomend',
+  headers: { 
+    'Content-Type': 'application/json'
+  },
+  data : data
+};
+
+const temp = await axios(config)
+.then(async (response) => {
+  console.log(JSON.stringify(response.data));
+  this.songs = response.data;
+  for(let i=0; i<this.songs.length;i++){
+      this.songs[i].artists = this.songs[i].artists.replaceAll('[','');
+      this.songs[i].artists = this.songs[i].artists.replaceAll(']','');
+      this.songs[i].artists = this.songs[i].artists.replaceAll(']','');
+      this.songs[i].artists = this.songs[i].artists.replaceAll("'",'');
+  }
+})
+.catch(function (error) {
+  console.log(error);
+});
+console.log(temp);
+
         }
     },
 }
+
 </script>
 
 <style>
@@ -86,8 +110,3 @@ body{
      color:white;
    }
 </style>
-
-// {
-// "name": "Come As You Are",
-// "year":1991
-// }
